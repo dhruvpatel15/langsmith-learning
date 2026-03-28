@@ -1,0 +1,5 @@
+name: "LangSmith_Quality_Check"
+version: "1.0.0"
+combine: "any_block_blocks"
+policies:
+  - path: "policies/quality_policy.yaml"

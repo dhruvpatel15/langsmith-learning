@@ -23,8 +23,10 @@ from evaluators import (
     relevance_evaluator,
     conciseness_evaluator,
     factual_correctness_evaluator,
-    tone_evaluator
+    tone_evaluator,
+    geval_policy_evaluator
 )
+
 
 # Configure logging
 logging.basicConfig(
@@ -286,7 +288,8 @@ def run_prompt_comparison(client: Client, llm: ChatOllama, dataset_name: str) ->
         relevance_evaluator,
         conciseness_evaluator,
         factual_correctness_evaluator,
-        tone_evaluator
+        tone_evaluator,
+        geval_policy_evaluator
     ]
 
     results = {}
@@ -313,7 +316,8 @@ def run_prompt_comparison(client: Client, llm: ChatOllama, dataset_name: str) ->
             "relevance": [],
             "conciseness": [],
             "factual_correctness": [],
-            "tone": []
+            "tone": [],
+            "geval_policy": []
         }
 
         for result in experiment_results:
@@ -346,7 +350,8 @@ def run_prompt_comparison(client: Client, llm: ChatOllama, dataset_name: str) ->
         print(f"  Relevance: {scores['relevance']:.2f} | "
               f"Concise: {scores['conciseness']:.2f} | "
               f"Correct: {scores['factual_correctness']:.2f} | "
-              f"Tone: {scores['tone']:.2f}")
+              f"Tone: {scores['tone']:.2f} | "
+              f"Geval: {scores['geval_policy']:.2f}")
         avg_overall = sum(scores.values()) / len(scores)
         print(f"  Overall Average: {avg_overall:.2f}")
         print()
@@ -390,7 +395,8 @@ def run_temperature_comparison(client: Client, dataset_name: str, prompt_templat
         relevance_evaluator,
         conciseness_evaluator,
         factual_correctness_evaluator,
-        tone_evaluator
+        tone_evaluator,
+        geval_policy_evaluator
     ]
 
     results = {}
@@ -419,7 +425,8 @@ def run_temperature_comparison(client: Client, dataset_name: str, prompt_templat
             "relevance": [],
             "conciseness": [],
             "factual_correctness": [],
-            "tone": []
+            "tone": [],
+            "geval_policy": []
         }
 
         for result in experiment_results:
@@ -440,7 +447,8 @@ def run_temperature_comparison(client: Client, dataset_name: str, prompt_templat
         print(f"     Avg scores: Rel={avg_scores['relevance']:.2f} | "
               f"Conc={avg_scores['conciseness']:.2f} | "
               f"Corr={avg_scores['factual_correctness']:.2f} | "
-              f"Tone={avg_scores['tone']:.2f}")
+              f"Tone={avg_scores['tone']:.2f} | "
+              f"Geval={avg_scores['geval_policy']:.2f}")
 
     # Print comparison summary
     print("\n" + "=" * 70)
@@ -452,7 +460,8 @@ def run_temperature_comparison(client: Client, dataset_name: str, prompt_templat
         print(f"  Relevance: {scores['relevance']:.2f} | "
               f"Concise: {scores['conciseness']:.2f} | "
               f"Correct: {scores['factual_correctness']:.2f} | "
-              f"Tone: {scores['tone']:.2f}")
+              f"Tone: {scores['tone']:.2f} | "
+              f"Geval: {scores['geval_policy']:.2f}")
         avg_overall = sum(scores.values()) / len(scores)
         print(f"  Overall Average: {avg_overall:.2f}")
         print()

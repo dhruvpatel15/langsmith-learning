@@ -1,0 +1,16 @@
+{
+    "signals": [
+        {
+            "metric": "conciseness",
+            "value": 0.90
+        },
+        {
+            "metric": "correctness",
+            "value": 0.88
+        },
+        {
+            "metric": "relevance",
+            "value": 0.99
+        }
+    ]
+}

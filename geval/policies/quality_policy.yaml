@@ -1,0 +1,26 @@
+policy:
+  rules:
+    - priority: 1
+      name: "low_relevance"
+      when:
+        metric: "relevance"
+        operator: "<"
+        threshold: 0.6
+      then:
+        action: "block"
+    - priority: 2
+      name: "factual_error"
+      when:
+        metric: "factual_correctness"
+        operator: "<"
+        threshold: 0.7
+      then:
+        action: "block"
+    - priority: 3
+      name: "poor_conciseness"
+      when:
+        metric: "conciseness"
+        operator: "<"
+        threshold: 0.5
+      then:
+        action: "require_approval"

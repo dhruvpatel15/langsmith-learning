@@ -11,6 +11,8 @@ In production, you'd make these more sophisticated.
 """
 
 from langsmith.schemas import Run, Example
+import geval_utils
+
 
 
 def relevance_evaluator(run: Run, example: Example) -> dict:
@@ -273,3 +275,49 @@ def tone_evaluator(run: Run, example: Example) -> dict:
         "score": score,
         "comment": comment
     }
+
+
+def geval_policy_evaluator(run: Run, example: Example) -> dict:
+    """
+    Evaluates the completion against a Geval contract.
+    This evaluator acts as a meta-evaluator, taking the results of
+    relevance, conciseness, and factual correctness as signals.
+    """
+    # 1. Calculate base signals
+    # We invoke the other evaluators to get their scores as input signals for Geval
+    rel = relevance_evaluator(run, example)
+    conc = conciseness_evaluator(run, example)
+    corr = factual_correctness_evaluator(run, example)
+    
+    scores = {
+        "relevance": rel.get("score", 0),
+        "conciseness": conc.get("score", 0),
+        "factual_correctness": corr.get("score", 0)
+    }
+    
+    # 2. Format signals for Geval
+    signals = geval_utils.format_signals(scores)
+    
+    # 3. Run Geval check
+    exit_code, output = geval_utils.run_geval_check(signals)
+    
+    # 4. Map Geval exit code to LangSmith score
+    # Geval codes: 0=PASS, 1=REQUIRE_APPROVAL, 2=BLOCK
+    if exit_code == 0:
+        ls_score = 1.0
+        status = "PASS"
+    elif exit_code == 1:
+        ls_score = 0.5
+        status = "REQUIRE_APPROVAL"
+    elif exit_code == 2:
+        ls_score = 0.0
+        status = "BLOCK"
+    else:
+        ls_score = 0.0
+        status = "ERROR"
+        
+    return {
+        "key": "geval_policy",
+        "score": ls_score,
+        "comment": f"[{status}] {output.strip()}"
+    }

@@ -1,0 +1,30 @@
+{
+  "artifact_version": "3",
+  "geval_version": "0.1.2",
+  "bundle_hash": "d1da9449c25f0a2e648cefcf4ca308c430afbaeb6c7c6fe5fe024c4253d9b5c5",
+  "contracts_combine_rule": "all_pass",
+  "contracts": [
+    {
+      "contract_path": "contract.yaml",
+      "contract_name": "LLM_Scores",
+      "contract_version": "1.0.0",
+      "contract_hash": "eca866ff0588297d20802b748430c004b2003461c1b30a20de43e7bf85d3b04d",
+      "combine_rule": "any_block_blocks",
+      "policy_results": [
+        {
+          "policy_path": "policy.yaml",
+          "policy_hash": "d772ba514662e8eca9136462280d6d78dc08592bbc2145524461dcddf8566ff9",
+          "outcome": "REQUIRE_APPROVAL",
+          "matched_rule": "rule_3"
+        }
+      ],
+      "combined_decision": "REQUIRE_APPROVAL",
+      "combined_matched_rule": "policy.yaml:rule_3"
+    }
+  ],
+  "overall_combined_decision": "REQUIRE_APPROVAL",
+  "overall_matched_rule": "contract.yaml:policy.yaml:rule_3",
+  "signals_hash": "2ad135966b3d1349e61b48ab3aaf33c4f4437dcbd35c019652cc9abdf2ce3ac8",
+  "timestamp": "2026-03-28T10:08:24Z",
+  "approval": null
+}

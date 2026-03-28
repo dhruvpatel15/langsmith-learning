@@ -1,0 +1,27 @@
+{
+  "artifact_version": "3",
+  "geval_version": "0.1.2",
+  "bundle_hash": "da223308ed1028ecef9e26b6166d6a2fd14b1acab3a86cb92ecf7024352d130e",
+  "contracts_combine_rule": "all_pass",
+  "contracts": [
+    {
+      "contract_path": "geval/contract.yaml",
+      "contract_name": "LangSmith_Quality_Check",
+      "contract_version": "1.0.0",
+      "contract_hash": "83afd1a47066c3c1f74295bfbc3a8cacb1e31de16d56fef971fdf532fc46077c",
+      "combine_rule": "any_block_blocks",
+      "policy_results": [
+        {
+          "policy_path": "policies/quality_policy.yaml",
+          "policy_hash": "94f9092e9549d9233f580f2ed20099961c3d7e3cc48b9519ab7537669c0b4ef5",
+          "outcome": "PASS"
+        }
+      ],
+      "combined_decision": "PASS"
+    }
+  ],
+  "overall_combined_decision": "PASS",
+  "signals_hash": "4c2d567f1ef2f51aecf6282257dacba5d4e368ea779f383a3c61f871e75893c9",
+  "timestamp": "2026-03-28T10:20:09Z",
+  "approval": null
+}
